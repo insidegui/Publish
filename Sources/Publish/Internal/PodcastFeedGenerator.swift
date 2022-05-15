@@ -8,14 +8,23 @@ import Foundation
 import Plot
 import CollectionConcurrencyKit
 
-internal struct PodcastFeedGenerator<Site: Website> where Site.ItemMetadata: PodcastCompatibleWebsiteItemMetadata {
+public struct PodcastFeedGenerator<Site: Website> where Site.ItemMetadata: PodcastCompatibleWebsiteItemMetadata {
+    
     let sectionID: Site.SectionID
     let itemPredicate: Predicate<Item<Site>>?
     let config: PodcastFeedConfiguration<Site>
     let context: PublishingContext<Site>
     let date: Date
+    
+    public init(sectionID: Site.SectionID, itemPredicate: Predicate<Item<Site>>?, config: PodcastFeedConfiguration<Site>, context: PublishingContext<Site>, date: Date) {
+        self.sectionID = sectionID
+        self.itemPredicate = itemPredicate
+        self.config = config
+        self.context = context
+        self.date = date
+    }
 
-    func generate() async throws {
+    public func generate() async throws {
         let outputFile = try context.createOutputFile(at: config.targetPath)
         let cacheFile = try context.cacheFile(named: "feed")
         let oldCache = try? cacheFile.read().decoded() as Cache
