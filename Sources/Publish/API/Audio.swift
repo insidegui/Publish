@@ -59,16 +59,25 @@ public extension Audio {
     }
 }
 
-extension Audio: Decodable {
+extension Audio: Codable {
+    
     public init(from decoder: Decoder) throws {
         url = try decoder.decode("url")
         format = try decoder.decodeIfPresent("format") ?? .mp3
         duration = try decoder.decodeIfPresent("duration")
         byteSize = try decoder.decodeIfPresent("size")
     }
+    
+    public func encode(to encoder: Encoder) throws {
+        try encoder.encode(url, for: "url")
+        try encoder.encode(format, for: "format")
+        try encoder.encode(duration, for: "duration")
+        try encoder.encode(byteSize, for: "byteSize")
+    }
+    
 }
 
-extension Audio.Duration: Decodable {
+extension Audio.Duration: Codable {
     public init(from decoder: Decoder) throws {
         self.init()
 
@@ -99,5 +108,11 @@ extension Audio.Duration: Decodable {
 
             self[keyPath: keyPath] = value
         }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        try encoder.encode(hours, for: "hours")
+        try encoder.encode(minutes, for: "minutes")
+        try encoder.encode(seconds, for: "seconds")
     }
 }
