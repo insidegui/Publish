@@ -45,6 +45,32 @@ final class PodcastFeedGenerationTests: PublishTestCase {
         XCTAssertFalse(feed.contains("Not included"))
     }
 
+    func testItemMutations() throws {
+        let folder = try Folder.createTemporary()
+
+        let titleSuffix = " - Something More"
+        let replacementString = "yay"
+
+        try generateFeed(
+            in: folder,
+            itemMutations: {
+                $0.title += titleSuffix
+                $0.body.html = $0.body.html.replacingOccurrences(of: "replaced", with: replacementString)
+            },
+            content: [
+            "one/item.md": """
+            \(makeStubbedAudioMetadata())
+            # Title
+
+            This text will be replaced by mutations
+            """
+        ])
+
+        let feed = try folder.file(at: "Output/feed.rss").readAsString()
+        XCTAssertTrue(feed.contains("<title>Title - Something More</title>"))
+        XCTAssertTrue(feed.contains("This text will be yay by mutations"))
+    }
+
     func testConvertingRelativeLinksToAbsolute() throws {
         let folder = try Folder.createTemporary()
 
@@ -198,6 +224,7 @@ private extension PodcastFeedGenerationTests {
         in folder: Folder,
         config: Configuration? = nil,
         itemPredicate: Predicate<Item<Site>>? = nil,
+        itemMutations: Mutations<Item<Site>>? = nil,
         generationSteps: [PublishingStep<Site>] = [
             .addMarkdownFiles()
         ],
@@ -209,6 +236,7 @@ private extension PodcastFeedGenerationTests {
             .generatePodcastFeed(
                 for: .one,
                 itemPredicate: itemPredicate,
+                itemMutations: itemMutations,
                 config: config ?? makeConfigStub(),
                 date: date
             )

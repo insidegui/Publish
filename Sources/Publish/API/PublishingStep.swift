@@ -433,12 +433,15 @@ public extension PublishingStep where Site.ItemMetadata: PodcastCompatibleWebsit
     /// - parameter section: The section to generate a podcast feed for.
     /// - parameter itemPredicate: A predicate used to determine whether to
     ///   include a given item within the generated feed (default: include all).
+    /// - parameter itemMutations: A closure used to modify items before they are
+    ///   included in the generated feed.
     /// - parameter config: The configuration to use when generating the feed.
     /// - parameter date: The date that should act as the build and publishing
     ///   date for the generated feed (default: the current date).
     static func generatePodcastFeed(
         for section: Site.SectionID,
         itemPredicate: Predicate<Item<Site>>? = nil,
+        itemMutations: Mutations<Item<Site>>? = nil,
         config: PodcastFeedConfiguration<Site>,
         date: Date = Date()
     ) -> Self {
@@ -446,6 +449,7 @@ public extension PublishingStep where Site.ItemMetadata: PodcastCompatibleWebsit
             let generator = PodcastFeedGenerator(
                 sectionID: section,
                 itemPredicate: itemPredicate,
+                itemMutations: itemMutations,
                 config: config,
                 context: context,
                 date: date

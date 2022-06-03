@@ -12,13 +12,15 @@ public struct PodcastFeedGenerator<Site: Website> where Site.ItemMetadata: Podca
     
     let sectionID: Site.SectionID
     let itemPredicate: Predicate<Item<Site>>?
+    let itemMutations: Mutations<Item<Site>>?
     let config: PodcastFeedConfiguration<Site>
     let context: PublishingContext<Site>
     let date: Date
     
-    public init(sectionID: Site.SectionID, itemPredicate: Predicate<Item<Site>>?, config: PodcastFeedConfiguration<Site>, context: PublishingContext<Site>, date: Date) {
+    public init(sectionID: Site.SectionID, itemPredicate: Predicate<Item<Site>>?, itemMutations: Mutations<Item<Site>>?, config: PodcastFeedConfiguration<Site>, context: PublishingContext<Site>, date: Date) {
         self.sectionID = sectionID
         self.itemPredicate = itemPredicate
+        self.itemMutations = itemMutations
         self.config = config
         self.context = context
         self.date = date
@@ -88,7 +90,17 @@ private extension PodcastFeedGenerator {
             ),
             .type(config.type),
             .image(config.imageURL),
-            .group(await items.concurrentMap { item in
+            .group(await items.concurrentMap {
+                let item: Item<Site>
+
+                if let mutations = itemMutations {
+                    var mutatedItem = $0
+                    try mutations(&mutatedItem)
+                    item = mutatedItem
+                } else {
+                    item = $0
+                }
+
                 guard let audio = item.audio else {
                     throw PodcastError(path: item.path, reason: .missingAudio)
                 }
