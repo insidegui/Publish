@@ -11,6 +11,7 @@ import Plot
 /// using the `generatePodcastFeed` step. To use a default implementation,
 /// use `PodcastFeedConfiguration.default`.
 public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
+    public var title: String?
     public var targetPath: Path
     public var ttlInterval: TimeInterval
     public var maximumItemCount: Int
@@ -38,6 +39,7 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
 
     /// Initialize a new configuration instance.
     /// - Parameter targetPath: The path that the feed should be generated at.
+    /// - Parameter title: A custom title for the feed. Uses the website's name by default.
     /// - Parameter ttlInterval: The feed's TTL time interval.
     /// - Parameter maximumItemCount: The maximum number of items that the
     ///   feed should contain.
@@ -54,6 +56,7 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
     /// - Parameter indentation: How the feed should be indented.
     public init(
         targetPath: Path,
+        title: String? = nil,
         ttlInterval: TimeInterval = 250,
         maximumItemCount: Int = .max,
         type: PodcastType = .episodic,
@@ -68,6 +71,7 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
         newFeedURL: URL? = nil,
         indentation: Indentation.Kind? = nil
     ) {
+        self.title = title
         self.targetPath = targetPath
         self.ttlInterval = ttlInterval
         self.maximumItemCount = maximumItemCount

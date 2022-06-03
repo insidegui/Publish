@@ -59,6 +59,22 @@ final class RSSFeedGenerationTests: PublishTestCase {
         """)
     }
 
+    func testCustomFeedTitle() throws {
+        let folder = try Folder.createTemporary()
+
+        try generateFeed(
+            in: folder,
+            config: .init(title: "A Custom Feed Title"),
+            content: [
+            "one/item.md": """
+            # Item Title
+            """
+        ])
+
+        let feed = try folder.file(at: "Output/feed.rss").readAsString()
+        XCTAssertTrue(feed.contains("<title>A Custom Feed Title</title>"))
+    }
+
     func testItemTitlePrefixAndSuffix() throws {
         let folder = try Folder.createTemporary()
 

@@ -10,6 +10,8 @@ import Plot
 /// Protocol that acts as a shared API for configuring various feed
 /// generation steps, such as `generateRSSFeed` and `generatePodcastFeed`.
 public protocol FeedConfiguration: Codable, Equatable {
+    /// The main title for the feed.
+    var title: String? { get }
     /// The path that the feed should be generated at.
     var targetPath: Path { get }
     /// The feed's TTL (or "Time to live") time interval.

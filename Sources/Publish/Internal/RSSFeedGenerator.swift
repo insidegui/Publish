@@ -58,7 +58,7 @@ private extension RSSFeedGenerator {
 
     func makeFeed(containing items: [Item<Site>]) async -> RSS {
         RSS(
-            .title(context.site.name),
+            .title(config.title ?? context.site.name),
             .description(context.site.description),
             .link(context.site.url),
             .language(context.site.language),

@@ -71,6 +71,26 @@ final class PodcastFeedGenerationTests: PublishTestCase {
         XCTAssertTrue(feed.contains("This text will be yay by mutations"))
     }
 
+    func testCustomFeedTitle() throws {
+        let folder = try Folder.createTemporary()
+
+        var config = try makeConfigStub()
+        config.title = "A Custom Podcast Feed Title"
+
+        try generateFeed(
+            in: folder,
+            config: config,
+            content: [
+                "one/item.md": """
+                \(makeStubbedAudioMetadata())
+                # Title
+                """
+            ])
+
+        let feed = try folder.file(at: "Output/feed.rss").readAsString()
+        XCTAssertTrue(feed.contains("<title>A Custom Podcast Feed Title</title>"))
+    }
+
     func testConvertingRelativeLinksToAbsolute() throws {
         let folder = try Folder.createTemporary()
 
