@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug publish-cli",
+            "program": "${workspaceFolder:Publish}/.build/debug/publish-cli",
+            "args": [],
+            "cwd": "${workspaceFolder:Publish}",
+            "preLaunchTask": "swift: Build Debug publish-cli"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release publish-cli",
+            "program": "${workspaceFolder:Publish}/.build/release/publish-cli",
+            "args": [],
+            "cwd": "${workspaceFolder:Publish}",
+            "preLaunchTask": "swift: Build Release publish-cli"
+        }
+    ]
+}

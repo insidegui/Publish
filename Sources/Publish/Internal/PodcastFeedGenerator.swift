@@ -69,7 +69,7 @@ private extension PodcastFeedGenerator {
             .unwrap(config.newFeedURL, Node.newFeedURL),
             .title(config.title ?? context.site.name),
             .description(config.description),
-            .link(context.site.url(for: section)),
+            .link(config.linkURL ?? context.site.url(for: section)),
             .language(context.site.language),
             .lastBuildDate(date, timeZone: context.dateFormatter.timeZone),
             .pubDate(date, timeZone: context.dateFormatter.timeZone),

@@ -36,6 +36,8 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
     public var subcategory: String?
     /// Any new feed URL to instruct Apple Podcasts to use going forward.
     public var newFeedURL: URL?
+    /// A URL that points to the podcast's index page on the website.
+    public var linkURL: URL?
 
     /// Initialize a new configuration instance.
     /// - Parameter targetPath: The path that the feed should be generated at.
@@ -43,6 +45,7 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
     /// - Parameter ttlInterval: The feed's TTL time interval.
     /// - Parameter maximumItemCount: The maximum number of items that the
     ///   feed should contain.
+    /// - Parameter indentation: How the feed should be indented.
     /// - Parameter type: The type of the podcast.
     /// - Parameter imageURL: A URL that points to the podcast's main image.
     /// - Parameter copyrightText: The copyright text to add to the podcast feed.
@@ -53,7 +56,7 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
     /// - Parameter category: The podcast's main top-level category.
     /// - Parameter subcategory: The podcast's subcategory.
     /// - Parameter newFeedURL: Any new feed URL for the podcast.
-    /// - Parameter indentation: How the feed should be indented.
+    /// - Parameter linkURL: A URL that points to the podcast's index page on the website.
     public init(
         targetPath: Path,
         title: String? = nil,
@@ -69,7 +72,8 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
         category: String,
         subcategory: String? = nil,
         newFeedURL: URL? = nil,
-        indentation: Indentation.Kind? = nil
+        indentation: Indentation.Kind? = nil,
+        linkURL: URL? = nil
     ) {
         self.title = title
         self.targetPath = targetPath
@@ -86,5 +90,6 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
         self.subcategory = subcategory
         self.isExplicit = isExplicit
         self.newFeedURL = newFeedURL
+        self.linkURL = linkURL
     }
 }
