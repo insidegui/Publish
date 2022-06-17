@@ -45,7 +45,6 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
     /// - Parameter ttlInterval: The feed's TTL time interval.
     /// - Parameter maximumItemCount: The maximum number of items that the
     ///   feed should contain.
-    /// - Parameter indentation: How the feed should be indented.
     /// - Parameter type: The type of the podcast.
     /// - Parameter imageURL: A URL that points to the podcast's main image.
     /// - Parameter copyrightText: The copyright text to add to the podcast feed.
@@ -56,6 +55,7 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
     /// - Parameter category: The podcast's main top-level category.
     /// - Parameter subcategory: The podcast's subcategory.
     /// - Parameter newFeedURL: Any new feed URL for the podcast.
+    /// - Parameter indentation: How the feed should be indented.
     /// - Parameter linkURL: A URL that points to the podcast's index page on the website.
     public init(
         targetPath: Path,
