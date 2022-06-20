@@ -16,8 +16,9 @@ internal struct RSSFeedGenerator<Site: Website> {
     let date: Date
 
     func generate() async throws {
+        let cacheFileName = config.targetPath.string.replacingOccurrences(of: "/", with: "-")
         let outputFile = try context.createOutputFile(at: config.targetPath)
-        let cacheFile = try context.cacheFile(named: "feed")
+        let cacheFile = try context.cacheFile(named: cacheFileName)
         let oldCache = try? cacheFile.read().decoded() as Cache
         var items = [Item<Site>]()
 
