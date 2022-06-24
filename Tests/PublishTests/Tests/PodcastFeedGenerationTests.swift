@@ -163,7 +163,7 @@ final class PodcastFeedGenerationTests: PublishTestCase {
         XCTAssertNotEqual(feedA, feedB)
     }
     
-    func testUseOptionalItemImageIfAvailableDefaultToConfigImage() throws {
+    func testUseOptionalItemImageIfAvailable() throws {
         let folder = try Folder.createTemporary()
 
         try generateFeed(in: folder, content: [
@@ -178,7 +178,6 @@ final class PodcastFeedGenerationTests: PublishTestCase {
         ])
 
         let feed = try folder.file(at: "Output/feed.rss").readAsString()
-        XCTAssertTrue(feed.contains("image.png"))
         XCTAssertTrue(feed.contains("image-item.png"))
     }
 }

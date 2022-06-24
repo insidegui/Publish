@@ -110,7 +110,7 @@ private extension PodcastFeedGenerator {
                     .summary(item.description),
                     .explicit(metadata?.isExplicit ?? false),
                     .duration(audioDuration),
-                    .image(imageURL ?? config.imageURL),
+                    .unwrap(imageURL, Node.image),
                     .unwrap(metadata?.episodeNumber, Node.episodeNumber),
                     .unwrap(metadata?.seasonNumber, Node.seasonNumber),
                     .audio(
