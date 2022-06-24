@@ -29,7 +29,7 @@ let package = Package(
         .package(
             name: "Files",
             url: "https://github.com/insidegui/Files.git",
-            branch: "temp"
+            from: "4.2.0"
         ),
         .package(
             name: "Codextended",
