@@ -23,8 +23,8 @@
         "package": "Files",
         "repositoryURL": "https://github.com/insidegui/Files.git",
         "state": {
-          "branch": "temp",
-          "revision": "b43f7d1c5b242ef78a339dcc5fd0cbc0df9ee1c8",
+          "branch": "bump-target",
+          "revision": "0315d19d42bbd35a5fe671ab57987ee83596ab9e",
           "version": null
         }
       },
@@ -48,11 +48,11 @@
       },
       {
         "package": "ShellOut",
-        "repositoryURL": "https://github.com/johnsundell/shellout.git",
+        "repositoryURL": "https://github.com/insidegui/shellout.git",
         "state": {
-          "branch": null,
-          "revision": "e1577acf2b6e90086d01a6d5e2b8efdaae033568",
-          "version": "2.3.0"
+          "branch": "bump-target",
+          "revision": "49fd617ad76db292016ca248d93fc7d59aa43618",
+          "version": null
         }
       },
       {

@@ -29,7 +29,7 @@ let package = Package(
         .package(
             name: "Files",
             url: "https://github.com/insidegui/Files.git",
-            from: "4.2.0"
+            branch: "bump-target"
         ),
         .package(
             name: "Codextended",
@@ -38,8 +38,8 @@ let package = Package(
         ),
         .package(
             name: "ShellOut",
-            url: "https://github.com/johnsundell/shellout.git",
-            from: "2.3.0"
+            url: "https://github.com/insidegui/shellout.git",
+            branch: "bump-target"
         ),
         .package(
             name: "Sweep",
