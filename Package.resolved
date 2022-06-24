@@ -21,11 +21,11 @@
       },
       {
         "package": "Files",
-        "repositoryURL": "https://github.com/johnsundell/files.git",
+        "repositoryURL": "https://github.com/insidegui/Files.git",
         "state": {
-          "branch": null,
-          "revision": "d273b5b7025d386feef79ef6bad7de762e106eaf",
-          "version": "4.2.0"
+          "branch": "temp",
+          "revision": "6ced106ff77785c49b62ea05770776b4caac137e",
+          "version": null
         }
       },
       {
