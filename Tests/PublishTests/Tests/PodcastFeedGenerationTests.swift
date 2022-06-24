@@ -208,6 +208,24 @@ final class PodcastFeedGenerationTests: PublishTestCase {
         let feedB = try folder.file(at: "Output/feed.rss").readAsString()
         XCTAssertNotEqual(feedA, feedB)
     }
+    
+    func testUseOptionalItemImageIfAvailable() throws {
+        let folder = try Folder.createTemporary()
+
+        try generateFeed(in: folder, content: [
+            "one/a.md": """
+            \(makeStubbedAudioMetadata(including:"image: image-item.png"))
+            # Image included
+            """,
+            "one/b": """
+            \(makeStubbedAudioMetadata())
+            # Image not included
+            """
+        ])
+
+        let feed = try folder.file(at: "Output/feed.rss").readAsString()
+        XCTAssertTrue(feed.contains("image-item.png"))
+    }
 }
 
 private extension PodcastFeedGenerationTests {

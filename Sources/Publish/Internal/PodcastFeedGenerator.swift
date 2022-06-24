@@ -116,6 +116,9 @@ private extension PodcastFeedGenerator {
 
                 let title = item.rssTitle
                 let metadata = item.metadata.podcast
+                let imageURL = item.imagePath.flatMap { path in
+                    URL(string: path.absoluteString)
+                }
 
                 return .item(
                     .guid(for: item, site: context.site),
@@ -129,7 +132,7 @@ private extension PodcastFeedGenerator {
                     .summary(item.description),
                     .explicit(metadata?.isExplicit ?? false),
                     .duration(audioDuration),
-                    .image(config.imageURL),
+                    .unwrap(imageURL, Node.image),
                     .unwrap(metadata?.episodeNumber, Node.episodeNumber),
                     .unwrap(metadata?.seasonNumber, Node.seasonNumber),
                     .audio(
