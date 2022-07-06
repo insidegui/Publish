@@ -91,6 +91,26 @@ final class PodcastFeedGenerationTests: PublishTestCase {
         XCTAssertTrue(feed.contains("<title>A Custom Podcast Feed Title</title>"))
     }
 
+    func testWebSubHubLinkSupport() throws {
+        let folder = try Folder.createTemporary()
+
+        var config = try makeConfigStub()
+        config.webSubHubURL = URL(string: "https://pubsubhubbub.appspot.com/")!
+
+        try generateFeed(
+            in: folder,
+            config: config,
+            content: [
+                "one/item.md": """
+                \(makeStubbedAudioMetadata())
+                # Title
+                """
+            ])
+
+        let feed = try folder.file(at: "Output/feed.rss").readAsString()
+        XCTAssertTrue(feed.contains("<atom:link href=\"https://pubsubhubbub.appspot.com/\" rel=\"hub\"/>"))
+    }
+
     func testConvertingRelativeLinksToAbsolute() throws {
         let folder = try Folder.createTemporary()
 

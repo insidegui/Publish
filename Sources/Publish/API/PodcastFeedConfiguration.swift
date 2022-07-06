@@ -38,6 +38,8 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
     public var newFeedURL: URL?
     /// A URL that points to the podcast's index page on the website.
     public var linkURL: URL?
+    /// A URL that points to the endpoint of the WebSub hub that can be used to subscribe to this feed.
+    public var webSubHubURL: URL?
 
     /// Initialize a new configuration instance.
     /// - Parameter targetPath: The path that the feed should be generated at.
@@ -57,6 +59,7 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
     /// - Parameter newFeedURL: Any new feed URL for the podcast.
     /// - Parameter indentation: How the feed should be indented.
     /// - Parameter linkURL: A URL that points to the podcast's index page on the website.
+    /// - Parameter webSubHubURL: A URL that points to the endpoint of the WebSub hub that can be used to subscribe to this feed.
     public init(
         targetPath: Path,
         title: String? = nil,
@@ -73,7 +76,8 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
         subcategory: String? = nil,
         newFeedURL: URL? = nil,
         indentation: Indentation.Kind? = nil,
-        linkURL: URL? = nil
+        linkURL: URL? = nil,
+        webSubHubURL: URL? = nil
     ) {
         self.title = title
         self.targetPath = targetPath
@@ -91,5 +95,6 @@ public struct PodcastFeedConfiguration<Site: Website>: FeedConfiguration {
         self.isExplicit = isExplicit
         self.newFeedURL = newFeedURL
         self.linkURL = linkURL
+        self.webSubHubURL = webSubHubURL
     }
 }

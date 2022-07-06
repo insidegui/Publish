@@ -76,6 +76,12 @@ private extension PodcastFeedGenerator {
             .pubDate(date, timeZone: context.dateFormatter.timeZone),
             .ttl(Int(config.ttlInterval)),
             .atomLink(context.site.url(for: config.targetPath)),
+            .unwrap(config.webSubHubURL, { url in
+                .selfClosedElement(named: "atom:link", attributes: [
+                    .attribute(named: "href", value: url.absoluteString),
+                    .attribute(named: "rel", value: "hub")
+                ])
+            }),
             .copyright(config.copyrightText),
             .author(config.author.name),
             .subtitle(config.subtitle),
