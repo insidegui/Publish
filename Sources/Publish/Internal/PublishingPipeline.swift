@@ -13,6 +13,7 @@ import Cocoa
 internal struct PublishingPipeline<Site: Website> {
     let steps: [PublishingStep<Site>]
     let originFilePath: Path
+    let outputFolderName: String
 }
 
 extension PublishingPipeline {
@@ -83,7 +84,6 @@ private extension PublishingPipeline {
     func setUpFolders(withExplicitRootPath path: Path?,
                       shouldEmptyOutputFolder: Bool) throws -> Folder.Group {
         let root = try resolveRootFolder(withExplicitPath: path)
-        let outputFolderName = "Output"
 
         if shouldEmptyOutputFolder {
             try? root.subfolder(named: outputFolderName).empty(includingHidden: true)

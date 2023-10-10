@@ -105,11 +105,13 @@ public extension Website {
     /// - parameter line: The line that this method is called from (auto-inserted).
     @discardableResult
     func publish(at path: Path? = nil,
+                 outputFolderName: String = "Output",
                  using steps: [PublishingStep<Self>],
                  file: StaticString = #file) throws -> PublishedWebsite<Self> {
         let pipeline = PublishingPipeline(
             steps: steps,
-            originFilePath: Path("\(file)")
+            originFilePath: Path("\(file)"),
+            outputFolderName: outputFolderName
         )
 
         let semaphore = DispatchSemaphore(value: 0)
