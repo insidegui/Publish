@@ -23,8 +23,8 @@ let package = Package(
         ),
         .package(
             name: "Plot",
-            url: "https://github.com/johnsundell/plot.git",
-            from: "0.9.0"
+            url: "https://github.com/insidegui/plot.git",
+            revision: "703569cbd3cecadb46068b7a66c135270599f9cf"
         ),
         .package(
             name: "Files",

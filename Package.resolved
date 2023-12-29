@@ -39,11 +39,11 @@
       },
       {
         "package": "Plot",
-        "repositoryURL": "https://github.com/johnsundell/plot.git",
+        "repositoryURL": "https://github.com/insidegui/plot.git",
         "state": {
           "branch": null,
-          "revision": "b358860fe565eb53e98b1f5807eb5939c8124547",
-          "version": "0.11.0"
+          "revision": "703569cbd3cecadb46068b7a66c135270599f9cf",
+          "version": null
         }
       },
       {
