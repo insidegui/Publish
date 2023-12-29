@@ -16,17 +16,14 @@ public struct PodcastFeedGenerator<Site: Website> where Site.ItemMetadata: Podca
     let config: PodcastFeedConfiguration<Site>
     let context: PublishingContext<Site>
     let date: Date
-    let formattedDate: String?
 
-    public init(sectionID: Site.SectionID, itemPredicate: Predicate<Item<Site>>?, itemMutations: Mutations<Item<Site>>?, config: PodcastFeedConfiguration<Site>, context: PublishingContext<Site>, date: Date, formattedDate: String? = nil) {
-        precondition(formattedDate != nil, "Gigahertz podcast feed requires a preformatted date")
+    public init(sectionID: Site.SectionID, itemPredicate: Predicate<Item<Site>>?, itemMutations: Mutations<Item<Site>>?, config: PodcastFeedConfiguration<Site>, context: PublishingContext<Site>, date: Date) {
         self.sectionID = sectionID
         self.itemPredicate = itemPredicate
         self.itemMutations = itemMutations
         self.config = config
         self.context = context
         self.date = date
-        self.formattedDate = formattedDate
     }
 
     public func generate() async throws {
@@ -75,14 +72,8 @@ private extension PodcastFeedGenerator {
             .description(config.description),
             .link(config.linkURL ?? context.site.url(for: section)),
             .language(context.site.language),
-            /// Use pre-formatted date if available.
-            /// This was introduced in order to workaround a crash on Linux (https://github.com/apple/swift/issues/69496)
-            .unwrap(formattedDate, { dateString in
-                    .group([
-                        .element(named: "lastBuildDate", text: dateString),
-                        .element(named: "pubDate", text: dateString)
-                    ])
-            }),
+            .lastBuildDate(date, timeZone: context.dateFormatter.timeZone),
+            .pubDate(date, timeZone: context.dateFormatter.timeZone),
             .ttl(Int(config.ttlInterval)),
             .atomLink(context.site.url(for: config.targetPath)),
             .unwrap(config.webSubHubURL, { url in
