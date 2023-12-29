@@ -19,6 +19,7 @@ public struct PodcastFeedGenerator<Site: Website> where Site.ItemMetadata: Podca
     let formattedDate: String?
 
     public init(sectionID: Site.SectionID, itemPredicate: Predicate<Item<Site>>?, itemMutations: Mutations<Item<Site>>?, config: PodcastFeedConfiguration<Site>, context: PublishingContext<Site>, date: Date, formattedDate: String? = nil) {
+        precondition(formattedDate != nil, "Gigahertz podcast feed requires a preformatted date")
         self.sectionID = sectionID
         self.itemPredicate = itemPredicate
         self.itemMutations = itemMutations
@@ -81,10 +82,7 @@ private extension PodcastFeedGenerator {
                         .element(named: "lastBuildDate", text: dateString),
                         .element(named: "pubDate", text: dateString)
                     ])
-            }, else: .group([
-                .lastBuildDate(date, timeZone: context.dateFormatter.timeZone),
-                .pubDate(date, timeZone: context.dateFormatter.timeZone),
-            ])),
+            }),
             .ttl(Int(config.ttlInterval)),
             .atomLink(context.site.url(for: config.targetPath)),
             .unwrap(config.webSubHubURL, { url in
