@@ -24,7 +24,7 @@ let package = Package(
         .package(
             name: "Plot",
             url: "https://github.com/insidegui/plot.git",
-            revision: "703569cbd3cecadb46068b7a66c135270599f9cf"
+            revision: "6ae6c0ae86811808c8888e070042f5720d7cb6e7"
         ),
         .package(
             name: "Files",
