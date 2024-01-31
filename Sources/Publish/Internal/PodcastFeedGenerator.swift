@@ -146,7 +146,15 @@ private extension PodcastFeedGenerator {
                         byteSize: audioSize,
                         type: "audio/\(audio.format.rawValue)",
                         title: title
-                    )
+                    ),
+                    .unwrap(item.transcript, {
+                        .transcript(
+                            url: $0.url,
+                            type: $0.mimeType.rawValue,
+                            language: $0.language?.rawValue,
+                            rel: $0.rel?.rawValue
+                        )
+                    })
                 )
             })
         )

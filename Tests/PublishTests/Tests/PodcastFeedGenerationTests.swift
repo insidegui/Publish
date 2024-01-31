@@ -131,6 +131,24 @@ final class PodcastFeedGenerationTests: PublishTestCase {
         """)
     }
 
+    func testGeneratingTranscriptTag() throws {
+        let folder = try Folder.createTemporary()
+
+        let markdown = """
+                       \(makeStubbedAudioMetadata(including: makeStubbedTranscriptMetadataProperties()))
+                       BEGIN [Link](/page) ![Image](/image.png) [Link](https://apple.com) END
+                       """
+        try generateFeed(in: folder, content: [
+            "one/item.md": markdown
+        ])
+
+        let feed = try folder.file(at: "Output/feed.rss").readAsString()
+
+        XCTAssertTrue(feed.contains("""
+        <podcast:transcript url="https://transcript.vtt" type="text/vtt" language="en"/>
+        """))
+    }
+
     func testItemPrefixAndSuffix() throws {
         let folder = try Folder.createTemporary()
 
@@ -278,10 +296,19 @@ private extension PodcastFeedGenerationTests {
         """
     }
 
+    func makeStubbedTranscriptMetadataProperties(including additionalString: String = "") -> String {
+        """
+        transcript.url: https://transcript.vtt
+        transcript.mimeType: text/vtt
+        transcript.language: en
+        \(additionalString)
+        """
+    }
+
     func generateFeed(
         in folder: Folder,
         config: Configuration? = nil,
-        itemPredicate: Predicate<Item<Site>>? = nil,
+        itemPredicate: Publish.Predicate<Item<Site>>? = nil,
         itemMutations: Mutations<Item<Site>>? = nil,
         generationSteps: [PublishingStep<Site>] = [
             .addMarkdownFiles()

@@ -62,4 +62,9 @@ public extension Location {
         get { content.video }
         set { content.video = newValue }
     }
+
+    var transcript: Transcript? {
+        get { content.transcript }
+        set { content.transcript = newValue }
+    }
 }

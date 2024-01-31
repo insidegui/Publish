@@ -67,6 +67,7 @@ private extension MarkdownContentFactory {
         let imagePath = try decoder.decodeIfPresent("image", as: Path.self)
         let audio = try decoder.decodeIfPresent("audio", as: Audio.self)
         let video = try decoder.decodeIfPresent("video", as: Video.self)
+        let transcript = try decoder.decodeIfPresent("transcript", as: Transcript.self)
 
         return Content(
             title: title ?? markdown.title ?? file.nameExcludingExtension,
@@ -76,7 +77,8 @@ private extension MarkdownContentFactory {
             lastModified: lastModified,
             imagePath: imagePath,
             audio: audio,
-            video: video
+            video: video,
+            transcript: transcript
         )
     }
 

@@ -43,4 +43,7 @@ public protocol ContentProtocol {
     /// can be used to display inline video players using the `videoPlayer`
     /// Plot component. See `Video` for more info.
     var video: Video? { get set }
+    /// Any transcript data that should be associated with the location.
+    /// Currently only used to implement Podcast feeds that support transcripts.
+    var transcript: Transcript? { get set }
 }
